@@ -20,6 +20,17 @@ const RootQuery = new GraphQLObjectType({
         return userData;
       },
     },
+    getUser: {
+      type: UserType,
+      args: { id: { type: GraphQLInt } },
+      resolve: (parent, args) => userData.find((user) => user.id === args.id),
+    },
+    getNames: {
+      type: new GraphQLList(UserType),
+      args: { firstName: { type: GraphQLString } },
+      resolve: (parent, args) =>
+        userData.filter((user) => user.firstName === args.firstName),
+    },
   },
 });
 
